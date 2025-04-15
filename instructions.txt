@@ -24,7 +24,7 @@ systemctl enable httpd
 mv /var/www/html /var/www/html.bak
 
 # Clone your repo into the html folder
-git clone https://github.com/yourusername/your-repo.git /var/www/html
+git clone https://github.com/jeffkraken/dodemo.git /var/www/html
 
 5. Adjust Permissions
 chown -R apache:apache /var/www/html
