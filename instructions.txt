@@ -11,13 +11,16 @@ ssh root@your_droplet_ip
 # Update packages
 dnf update -y
 
-# Install Git and Apache
-dnf install -y git httpd
+# Install Git, Apache, and Firewalld
+dnf install -y git httpd firewalld
 
 # Start and enable Apache
 systemctl start httpd
 systemctl enable httpd
 
+# Start and enable Firewalld
+systemctl start firewalld
+systemctl enable firewalld
 
 4. Clone Your GitHub Repo
 # Backup default Apache content
