@@ -1,16 +1,12 @@
 1. Create the Droplet
 On DigitalOcean:
-Choose CentOS (8 or 9 preferred)
+Choose CentOS9
 Choose size (the smallest $4–$6 plan is enough)
 Launch the Droplet
 
-2. SSH Into the Droplet
-ssh root@your_droplet_ip
+2. SSH Into the Droplet with PuTTY
 
 3. Install Git and a Web Server
-# Update packages
-dnf update -y
-
 # Install Git, Apache, and Firewalld
 dnf install -y git httpd firewalld
 
