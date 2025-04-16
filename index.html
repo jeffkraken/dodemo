@@ -2,20 +2,61 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Your IP and Local Time</title>
+  <title>Cloud Lab - IP, Time & Cloud Concepts</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2em; line-height: 1.6; }
+    h1, h2 { color: #2c3e50; }
+    ul { margin-top: 0; }
+    .box {
+      border: 1px solid #ccc;
+      padding: 1em;
+      margin-bottom: 1.5em;
+      border-radius: 8px;
+      background: #f9f9f9;
+    }
+    .info { font-weight: bold; }
+  </style>
 </head>
 <body>
-  <h1>Your Info</h1>
-  <p><strong>Public IP:</strong> <span id="ip">Loading...</span></p>
-  <p><strong>Your Local Time:</strong> <span id="time">Loading...</span></p>
+
+  <h1>Welcome to the Cloud Lab</h1>
+  <p>This page is hosted on a cloud server (DigitalOcean Droplet) and helps you explore core cloud concepts.</p>
+
+  <div class="box">
+    <h2>Your Information</h2>
+    <p><span class="info">Public IP:</span> <span id="ip">Loading...</span></p>
+    <p><span class="info">Your Local Time:</span> <span id="time">Loading...</span></p>
+    <p><span class="info">Server Time:</span> <span id="server-time">Loading...</span></p>
+    <p><span class="info">Your Approximate Location:</span> <span id="location">Loading...</span></p>
+  </div>
+
+  <div class="box">
+    <h2>NIST Cloud Characteristics Demonstrated</h2>
+    <ul>
+      <li><strong>Broad Network Access:</strong> You're accessing this lab through a web browser.</li>
+      <li><strong>Resource Pooling:</strong> The web server is running in a shared cloud infrastructure.</li>
+      <li><strong>Measured Service:</strong> Usage of this droplet is tracked by the cloud provider.</li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <h2>Think About It</h2>
+    <ul>
+      <li>How does this webpage show the difference between your computer and the cloud server?</li>
+      <li>Why do we see your local time and a different server time?</li>
+      <li>How would this look different if it were hosted on your local machine?</li>
+    </ul>
+  </div>
 
   <script>
+    // Fetch Public IP
     fetch('https://api.ipify.org?format=json')
       .then(response => response.json())
       .then(data => {
         document.getElementById('ip').textContent = data.ip;
       });
 
+    // Local Time Display
     const timeElem = document.getElementById('time');
     function updateTime() {
       const now = new Date();
@@ -23,6 +64,28 @@
     }
     updateTime();
     setInterval(updateTime, 1000);
+
+    // Server Time (requires 'servertime.txt' updated by cron or manually)
+    fetch('servertime.txt')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('server-time').textContent = data.trim();
+      })
+      .catch(() => {
+        document.getElementById('server-time').textContent = "Unavailable (missing file)";
+      });
+
+    // GeoIP Location
+    fetch('https://ipapi.co/json/')
+      .then(response => response.json())
+      .then(data => {
+        const location = `${data.city}, ${data.region}, ${data.country_name}`;
+        document.getElementById('location').textContent = location;
+      })
+      .catch(() => {
+        document.getElementById('location').textContent = "Location unavailable";
+      });
   </script>
+
 </body>
 </html>
