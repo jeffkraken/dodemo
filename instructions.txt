@@ -7,32 +7,9 @@ Launch the Droplet
 2. SSH Into the Droplet with PuTTY
 
 3. Install Git and a Web Server
-# Install Git, Apache, and Firewalld
 dnf install -y git httpd firewalld
 
-# Start and enable Apache
-systemctl start httpd
-systemctl enable httpd
-
-# Start and enable Firewalld
-systemctl start firewalld
-systemctl enable firewalld
-
-4. Clone Your GitHub Repo
-# Backup default Apache content
-mv /var/www/html /var/www/html.bak
-
-# Clone your repo into the html folder
+4. Download and Run the config script
 git clone https://github.com/jeffkraken/dodemo.git /var/www/html
-
-5. Adjust Permissions
-chown -R apache:apache /var/www/html
-chmod -R 755 /var/www/html
-
-6. Open the Firewall (if needed)
-# Enable HTTP access through the firewall
-firewall-cmd --permanent --add-service=http
-firewall-cmd --reload
-7. Visit the Site
-
-Now, go to http://your_droplet_ip in a browser. You should see your app.
+chmod 777 /var/www/html/config.sh
+/var/www/html/config.sh
