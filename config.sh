@@ -27,4 +27,8 @@ echo "Opening HTTP service in the firewall..."
 sudo firewall-cmd --permanent --add-service=http
 sudo firewall-cmd --reload
 
+# Step 6: Add cron job to update server time file every minute
+echo "Adding cron job to write server time to /var/www/html/servertime.txt..."
+(crontab -l 2>/dev/null; echo "* * * * * date > /var/www/html/servertime.txt") | crontab -
+
 echo "Setup complete. Using a web browser like FireFox or Chrome, browse to the VM's IP Address now."
